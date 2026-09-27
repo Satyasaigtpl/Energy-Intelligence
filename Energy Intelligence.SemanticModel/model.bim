@@ -1,0 +1,733 @@
+{
+  "compatibilityLevel": 1600,
+  "model": {
+    "annotations": [
+      {
+        "name": "__PBI_TimeIntelligenceEnabled",
+        "value": "0"
+      },
+      {
+        "name": "PBI_ProTooling",
+        "value": "[\"DevMode\"]"
+      }
+    ],
+    "culture": "en-US",
+    "defaultPowerBIDataSourceVersion": "powerBI_V3",
+    "expressions": [
+      {
+        "name": "DataFolder",
+        "expression": "\"C:/Users/Satya Sai/Documents/ChatGPT/PowerBI/data/curated/\" meta [IsParameterQuery=true, Type=\"Text\", IsParameterQueryRequired=true]",
+        "kind": "m",
+        "lineageTag": "20b393fa-a6a1-43cd-b8bc-5c8109f541d4"
+      }
+    ],
+    "relationships": [
+      {
+        "name": "92417685-9f98-55d9-bc7d-335a933af738",
+        "fromColumn": "Date",
+        "fromTable": "DailyMeter",
+        "toColumn": "Date",
+        "toTable": "Date"
+      },
+      {
+        "name": "c69f7d46-e3d4-50c8-a3e4-2f2b3658d511",
+        "fromColumn": "Meter",
+        "fromTable": "DailyMeter",
+        "toColumn": "Meter",
+        "toTable": "Meter"
+      },
+      {
+        "name": "a8584181-9ab5-5d0b-9cb9-2c810cee3bf6",
+        "fromColumn": "Date",
+        "fromTable": "SystemInterval",
+        "toColumn": "Date",
+        "toTable": "Date"
+      },
+      {
+        "name": "cdbab2e8-7d47-5ea8-b5c7-f4b7ed285a92",
+        "fromColumn": "Hour",
+        "fromTable": "SystemInterval",
+        "toColumn": "Hour",
+        "toTable": "Hour"
+      }
+    ],
+    "sourceQueryCulture": "en-US",
+    "tables": [
+      {
+        "name": "Date",
+        "columns": [
+          {
+            "name": "Date",
+            "dataType": "dateTime",
+            "formatString": "yyyy-MM-dd",
+            "isKey": true,
+            "lineageTag": "a33dc44a-0be8-46f5-92e2-8f038b7896c8",
+            "sourceColumn": "Date",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Year",
+            "dataType": "int64",
+            "lineageTag": "ded4e337-5f5b-452a-b370-7b7a4d89724a",
+            "sourceColumn": "Year",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Month",
+            "dataType": "string",
+            "lineageTag": "eff60be1-aa11-40b8-90ed-e3d8c030474b",
+            "sourceColumn": "Month",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "MonthName",
+            "dataType": "string",
+            "lineageTag": "5db01f50-4a32-4499-8a3b-329e210b415f",
+            "sortByColumn": "MonthNumber",
+            "sourceColumn": "MonthName",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "MonthNumber",
+            "dataType": "int64",
+            "lineageTag": "7504f5eb-c19c-4cad-bc54-5c164757cea7",
+            "sourceColumn": "MonthNumber",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Weekday",
+            "dataType": "string",
+            "lineageTag": "0b003eed-3124-4c0b-901d-8cfc4970c28b",
+            "sortByColumn": "WeekdayNumber",
+            "sourceColumn": "Weekday",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "WeekdayNumber",
+            "dataType": "int64",
+            "lineageTag": "30b152e2-9a4b-47b6-aeba-fb55dd673f4f",
+            "sourceColumn": "WeekdayNumber",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "DayType",
+            "dataType": "string",
+            "lineageTag": "5936d15d-6d89-4844-b28a-b312e2aa334c",
+            "sourceColumn": "DayType",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "DSTDay",
+            "dataType": "int64",
+            "lineageTag": "cf92e939-5688-474e-9ed4-acae1f498def",
+            "sourceColumn": "DSTDay",
+            "summarizeBy": "none"
+          }
+        ],
+        "dataCategory": "Time",
+        "lineageTag": "2bcb5678-f71f-4013-adcd-8ba277c534c6",
+        "partitions": [
+          {
+            "name": "Date",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(DataFolder & \"Date.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    Typed = Table.TransformColumnTypes(Headers, {{\"Date\", type date}, {\"Year\", Int64.Type}, {\"Month\", type text}, {\"MonthName\", type text}, {\"MonthNumber\", Int64.Type}, {\"Weekday\", type text}, {\"WeekdayNumber\", Int64.Type}, {\"DayType\", type text}, {\"DSTDay\", Int64.Type}}, \"en-US\")",
+                "in",
+                "    Typed"
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Meter",
+        "columns": [
+          {
+            "name": "Meter",
+            "dataType": "string",
+            "lineageTag": "1beb085c-3a3f-499d-a232-3d90292a03de",
+            "sourceColumn": "Meter",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "FirstPositiveDate",
+            "dataType": "dateTime",
+            "formatString": "yyyy-MM-dd",
+            "lineageTag": "5db5d3ae-a9f7-4b7a-a5ba-7947cfe4fe43",
+            "sourceColumn": "FirstPositiveDate",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "LastPositiveDate",
+            "dataType": "dateTime",
+            "formatString": "yyyy-MM-dd",
+            "lineageTag": "14d98df5-adb8-432a-8f35-02468d71f2e9",
+            "sourceColumn": "LastPositiveDate",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Cohort",
+            "dataType": "string",
+            "lineageTag": "88f08f1a-1949-404a-8584-dab6935f0cee",
+            "sourceColumn": "Cohort",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "PortfolioRank",
+            "dataType": "int64",
+            "lineageTag": "c611784f-a3a7-4109-9500-98dfc0301986",
+            "sourceColumn": "PortfolioRank",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Group",
+            "dataType": "string",
+            "lineageTag": "5cf47698-1f79-4052-ab5a-cbeeda8a6413",
+            "sourceColumn": "Group",
+            "summarizeBy": "none"
+          }
+        ],
+        "lineageTag": "75b81ad6-ce14-4d62-a45a-bb9a23047d8d",
+        "partitions": [
+          {
+            "name": "Meter",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(DataFolder & \"Meter.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    Typed = Table.TransformColumnTypes(Headers, {{\"Meter\", type text}, {\"FirstPositiveDate\", type date}, {\"LastPositiveDate\", type date}, {\"Cohort\", type text}, {\"PortfolioRank\", Int64.Type}, {\"Group\", type text}}, \"en-US\")",
+                "in",
+                "    Typed"
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Hour",
+        "columns": [
+          {
+            "name": "Hour",
+            "dataType": "int64",
+            "lineageTag": "b4093691-5fce-4283-ae30-2940cbe5d2dc",
+            "sourceColumn": "Hour",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "HourLabel",
+            "dataType": "string",
+            "lineageTag": "4e03a1c7-d971-4fde-978b-f34170eb890d",
+            "sortByColumn": "Hour",
+            "sourceColumn": "HourLabel",
+            "summarizeBy": "none"
+          }
+        ],
+        "lineageTag": "65977a54-c9aa-48d6-961f-18eefdf38bc2",
+        "partitions": [
+          {
+            "name": "Hour",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(DataFolder & \"Hour.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    Typed = Table.TransformColumnTypes(Headers, {{\"Hour\", Int64.Type}, {\"HourLabel\", type text}}, \"en-US\")",
+                "in",
+                "    Typed"
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "DailyMeter",
+        "columns": [
+          {
+            "name": "Date",
+            "dataType": "dateTime",
+            "formatString": "yyyy-MM-dd",
+            "isHidden": true,
+            "lineageTag": "cf1ee68d-d99b-4a36-9dcd-9c6e0d7d609c",
+            "sourceColumn": "Date",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Meter",
+            "dataType": "string",
+            "isHidden": true,
+            "lineageTag": "36107a9f-ad06-46aa-8fd9-3b6a062a20b0",
+            "sourceColumn": "Meter",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "EnergyKWh",
+            "dataType": "double",
+            "isHidden": true,
+            "lineageTag": "c44aef8f-bff1-486c-9868-7d9160b10a8b",
+            "sourceColumn": "EnergyKWh",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "NightKWh",
+            "dataType": "double",
+            "isHidden": true,
+            "lineageTag": "52771c2a-662d-4f0a-84fd-8f0b776c29e4",
+            "sourceColumn": "NightKWh",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "PeakKW",
+            "dataType": "double",
+            "isHidden": true,
+            "lineageTag": "5e439e37-4caf-4795-9e6d-ffb2452805e6",
+            "sourceColumn": "PeakKW",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Intervals",
+            "dataType": "int64",
+            "isHidden": true,
+            "lineageTag": "c9e3e82a-165b-4dfb-b4d6-21a9a43792ed",
+            "sourceColumn": "Intervals",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "ZeroReadings",
+            "dataType": "int64",
+            "isHidden": true,
+            "lineageTag": "81811c97-a7f5-46d9-9ed6-7a1d3582964e",
+            "sourceColumn": "ZeroReadings",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "PreActivation",
+            "dataType": "int64",
+            "isHidden": true,
+            "lineageTag": "0661d554-9302-40d2-b886-e1f2e57b22ff",
+            "sourceColumn": "PreActivation",
+            "summarizeBy": "none"
+          }
+        ],
+        "lineageTag": "4df4109b-cdac-4c07-842f-dfaa1d77d451",
+        "partitions": [
+          {
+            "name": "DailyMeter",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(DataFolder & \"DailyMeter.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    Typed = Table.TransformColumnTypes(Headers, {{\"Date\", type date}, {\"Meter\", type text}, {\"EnergyKWh\", type number}, {\"NightKWh\", type number}, {\"PeakKW\", type number}, {\"Intervals\", Int64.Type}, {\"ZeroReadings\", Int64.Type}, {\"PreActivation\", Int64.Type}}, \"en-US\")",
+                "in",
+                "    Typed"
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "SystemInterval",
+        "columns": [
+          {
+            "name": "Timestamp",
+            "dataType": "dateTime",
+            "formatString": "yyyy-MM-dd HH:mm",
+            "isHidden": true,
+            "lineageTag": "5b62eebd-34b7-426f-bc08-dfd005573552",
+            "sourceColumn": "Timestamp",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Date",
+            "dataType": "dateTime",
+            "formatString": "yyyy-MM-dd",
+            "isHidden": true,
+            "lineageTag": "e1b7b2c5-12b3-4db5-ab44-ff96d825feac",
+            "sourceColumn": "Date",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Hour",
+            "dataType": "int64",
+            "isHidden": true,
+            "lineageTag": "a4cc1fcc-2012-45a3-a572-347702a4b793",
+            "sourceColumn": "Hour",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "SystemKW",
+            "dataType": "double",
+            "isHidden": true,
+            "lineageTag": "473bb5ac-b3e0-48db-8745-14ed29935aaa",
+            "sourceColumn": "SystemKW",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "EnergyKWh",
+            "dataType": "double",
+            "isHidden": true,
+            "lineageTag": "733b1230-edbd-4973-8a51-9e9f16d2d6d9",
+            "sourceColumn": "EnergyKWh",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "ValidPeakKW",
+            "dataType": "double",
+            "isHidden": true,
+            "lineageTag": "11de7c6e-1f17-4ba1-821e-8725b1c75ebf",
+            "sourceColumn": "ValidPeakKW",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "DSTDay",
+            "dataType": "int64",
+            "isHidden": true,
+            "lineageTag": "10ea3491-9b4b-4037-b5cf-51b92ff54b49",
+            "sourceColumn": "DSTDay",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "ZeroReadings",
+            "dataType": "int64",
+            "isHidden": true,
+            "lineageTag": "114369e4-63a1-4c99-a79d-76f6ee419afa",
+            "sourceColumn": "ZeroReadings",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "PositiveMeters",
+            "dataType": "int64",
+            "isHidden": true,
+            "lineageTag": "b35673d0-a40a-4d12-8e11-b69786fdf84f",
+            "sourceColumn": "PositiveMeters",
+            "summarizeBy": "none"
+          }
+        ],
+        "lineageTag": "9e47ebf9-f8b9-4266-a6e9-3b5c8caaa7a0",
+        "partitions": [
+          {
+            "name": "SystemInterval",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(DataFolder & \"SystemInterval.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    Typed = Table.TransformColumnTypes(Headers, {{\"Timestamp\", type datetime}, {\"Date\", type date}, {\"Hour\", Int64.Type}, {\"SystemKW\", type number}, {\"EnergyKWh\", type number}, {\"ValidPeakKW\", type number}, {\"DSTDay\", Int64.Type}, {\"ZeroReadings\", Int64.Type}, {\"PositiveMeters\", Int64.Type}}, \"en-US\")",
+                "in",
+                "    Typed"
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Scenario",
+        "columns": [
+          {
+            "name": "Scenario",
+            "dataType": "string",
+            "lineageTag": "cc5440f1-5cd4-4964-84a3-863f0f6c8a74",
+            "sourceColumn": "Scenario",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Reduction",
+            "dataType": "double",
+            "formatString": "0%",
+            "lineageTag": "43438a45-d868-421a-baff-bcf9fd654d01",
+            "sourceColumn": "Reduction",
+            "summarizeBy": "none"
+          }
+        ],
+        "lineageTag": "16418bce-20f1-4fe8-a2fd-265f94258f1f",
+        "partitions": [
+          {
+            "name": "Scenario",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(DataFolder & \"Scenario.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    Typed = Table.TransformColumnTypes(Headers, {{\"Scenario\", type text}, {\"Reduction\", type number}}, \"en-US\")",
+                "in",
+                "    Typed"
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "CarbonFactor",
+        "columns": [
+          {
+            "name": "Factor",
+            "dataType": "double",
+            "formatString": "0.00",
+            "lineageTag": "8b7eee29-0160-4228-99b8-5578f696e4ad",
+            "sourceColumn": "Factor",
+            "summarizeBy": "none"
+          }
+        ],
+        "lineageTag": "b62e3c3a-82e6-4b53-987b-bbba0705db82",
+        "partitions": [
+          {
+            "name": "CarbonFactor",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(DataFolder & \"CarbonFactor.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    Typed = Table.TransformColumnTypes(Headers, {{\"Factor\", type number}}, \"en-US\")",
+                "in",
+                "    Typed"
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Metrics",
+        "columns": [
+          {
+            "name": "Label",
+            "dataType": "string",
+            "isHidden": true,
+            "lineageTag": "c4dcd1d5-3582-4d41-b83f-e0e32f0eceeb",
+            "sourceColumn": "Label"
+          }
+        ],
+        "lineageTag": "699b6e09-1cd6-4629-b3a4-b4d413a80aef",
+        "measures": [
+          {
+            "name": "Energy MWh",
+            "description": "Metered energy, source kW divided by four and summed.",
+            "displayFolder": "Consumption",
+            "expression": "DIVIDE(SUM(DailyMeter[EnergyKWh]),1000)",
+            "formatString": "#,0.0",
+            "lineageTag": "5696ea43-e696-44c0-9619-cc39297dc90a"
+          },
+          {
+            "name": "Energy GWh",
+            "description": "Metered energy in GWh.",
+            "displayFolder": "Consumption",
+            "expression": "DIVIDE([Energy MWh],1000)",
+            "formatString": "#,0.00",
+            "lineageTag": "c2279103-af4c-4414-ad7a-616fcd2a2074"
+          },
+          {
+            "name": "Night Share",
+            "description": "Energy during assumed interval starts 00:00 through 05:45 / all energy. Not a waste estimate.",
+            "displayFolder": "Consumption",
+            "expression": "DIVIDE(SUM(DailyMeter[NightKWh]),SUM(DailyMeter[EnergyKWh]))",
+            "formatString": "0.0%",
+            "lineageTag": "3d9ef7e7-a81b-4090-8795-7f587fa80b9c"
+          },
+          {
+            "name": "Meters with Usage",
+            "description": "Meters with positive energy in the current selection.",
+            "displayFolder": "Consumption",
+            "expression": "CALCULATE(DISTINCTCOUNT(DailyMeter[Meter]),DailyMeter[EnergyKWh]>0)",
+            "formatString": "#,0",
+            "lineageTag": "20ed37c6-3df4-4457-824d-072f5b90411a"
+          },
+          {
+            "name": "Energy PY MWh",
+            "description": "Same selected calendar dates one year earlier.",
+            "displayFolder": "Consumption",
+            "expression": "CALCULATE([Energy MWh],DATEADD('Date'[Date],-1,YEAR))",
+            "formatString": "#,0.0",
+            "lineageTag": "546f5175-6e0f-4f40-8054-5c422a6f67ca"
+          },
+          {
+            "name": "Energy YoY",
+            "description": "Calendar comparison; cohort expansion can affect growth. Blank unless one year is selected and prior-year data exists.",
+            "displayFolder": "Consumption",
+            "expression": "IF(HASONEVALUE('Date'[Year]),DIVIDE([Energy MWh]-[Energy PY MWh],[Energy PY MWh]))",
+            "formatString": "0.0%;-0.0%;0.0%",
+            "lineageTag": "78bc18ad-1e12-48d6-b081-f9fe8172bb0c"
+          },
+          {
+            "name": "Meter Rank",
+            "description": "Consumption rank in current selected meter population.",
+            "displayFolder": "Consumption",
+            "expression": "RANKX(ALLSELECTED(Meter[Meter]),[Energy MWh],,DESC,Dense)",
+            "formatString": "#,0",
+            "lineageTag": "08eae3a4-4175-4a90-87ca-a14e23243cf4"
+          },
+          {
+            "name": "System Peak MW",
+            "description": "Coincident portfolio peak, excludes entire DST transition days. No meter filtering.",
+            "displayFolder": "Demand",
+            "expression": "DIVIDE(MAX(SystemInterval[ValidPeakKW]),1000)",
+            "formatString": "#,0.00",
+            "lineageTag": "8cad50be-a01e-439b-986f-11c7228f06e3"
+          },
+          {
+            "name": "System Average MW",
+            "description": "Average portfolio load excluding DST transition days.",
+            "displayFolder": "Demand",
+            "expression": "DIVIDE(CALCULATE(AVERAGE(SystemInterval[SystemKW]),SystemInterval[DSTDay]=0),1000)",
+            "formatString": "#,0.00",
+            "lineageTag": "c94f8cec-0056-49c8-8305-a9d9ec1b7006"
+          },
+          {
+            "name": "System Load Factor",
+            "description": "Mean / peak for same selected valid intervals, not sum of meter peaks.",
+            "displayFolder": "Demand",
+            "expression": "DIVIDE([System Average MW],[System Peak MW])",
+            "formatString": "0.0%",
+            "lineageTag": "de635967-9118-4dc6-bdc7-dd70b8991b3b"
+          },
+          {
+            "name": "System Energy MWh",
+            "description": "Portfolio energy; independent of meter filters.",
+            "displayFolder": "Demand",
+            "expression": "DIVIDE(SUM(SystemInterval[EnergyKWh]),1000)",
+            "formatString": "#,0.0",
+            "lineageTag": "7c1cc521-4e8f-4c95-82ff-948c5251a1b1"
+          },
+          {
+            "name": "Valid Intervals",
+            "description": "15-minute portfolio intervals outside DST transition days.",
+            "displayFolder": "Demand",
+            "expression": "CALCULATE(COUNTROWS(SystemInterval),SystemInterval[DSTDay]=0)",
+            "formatString": "#,0",
+            "lineageTag": "6d00c4e3-330b-498a-8890-7754be109ecf"
+          },
+          {
+            "name": "Reduction Selected",
+            "description": "Default 10% when no single scenario is selected.",
+            "displayFolder": "Scenario",
+            "expression": "SELECTEDVALUE(Scenario[Reduction],0.1)",
+            "formatString": "0%",
+            "lineageTag": "805a2831-b483-4c2b-a6a8-8297ed64d8ca"
+          },
+          {
+            "name": "Carbon Factor Selected",
+            "description": "Illustrative kg CO2e/kWh; default 0.30. Not an observed grid factor.",
+            "displayFolder": "Scenario",
+            "expression": "SELECTEDVALUE(CarbonFactor[Factor],0.3)",
+            "formatString": "0.00",
+            "lineageTag": "21cd109f-6071-40c2-9b75-26926353727f"
+          },
+          {
+            "name": "Scenario Baseline tCO2e",
+            "description": "Illustrative footprint using a constant assumed factor, not a verified inventory.",
+            "displayFolder": "Scenario",
+            "expression": "[Energy MWh]*[Carbon Factor Selected]",
+            "formatString": "#,0.0",
+            "lineageTag": "edbca16a-b6ab-4d75-a514-b86868639594"
+          },
+          {
+            "name": "Scenario Avoided tCO2e",
+            "description": "Assumes proportional demand reduction at unchanged carbon intensity.",
+            "displayFolder": "Scenario",
+            "expression": "[Scenario Baseline tCO2e]*[Reduction Selected]",
+            "formatString": "#,0.0",
+            "lineageTag": "644c35fe-3457-4374-b28e-b8237f9429dc"
+          },
+          {
+            "name": "Scenario Remaining tCO2e",
+            "description": "Scenario baseline less hypothetical avoided emissions.",
+            "displayFolder": "Scenario",
+            "expression": "[Scenario Baseline tCO2e]-[Scenario Avoided tCO2e]",
+            "formatString": "#,0.0",
+            "lineageTag": "596e8066-8677-402f-8462-7a47411474de"
+          },
+          {
+            "name": "Scenario Saved MWh",
+            "description": "Hypothetical reduction in measured consumption, not achieved savings.",
+            "displayFolder": "Scenario",
+            "expression": "[Energy MWh]*[Reduction Selected]",
+            "formatString": "#,0.0",
+            "lineageTag": "7786b644-fa0f-461c-bdde-3f5a3a3a1ec6"
+          },
+          {
+            "name": "Readings",
+            "description": "Count of customer-interval readings including zero values.",
+            "displayFolder": "Quality",
+            "expression": "SUM(DailyMeter[Intervals])",
+            "formatString": "#,0",
+            "lineageTag": "e4c35f03-c14d-4f42-b061-6986af892674"
+          },
+          {
+            "name": "Zero Share",
+            "description": "All zero readings; includes onboarding and DST handling, not a missing-data rate.",
+            "displayFolder": "Quality",
+            "expression": "DIVIDE(SUM(DailyMeter[ZeroReadings]),[Readings])",
+            "formatString": "0.0%",
+            "lineageTag": "f966f62f-f99d-4891-a654-83c50010ff62"
+          },
+          {
+            "name": "Pre-activation Share",
+            "description": "Readings on dates before the first positive date. Inferred onboarding, not confirmed metadata.",
+            "displayFolder": "Quality",
+            "expression": "DIVIDE(CALCULATE(SUM(DailyMeter[Intervals]),DailyMeter[PreActivation]=1),[Readings])",
+            "formatString": "0.0%",
+            "lineageTag": "73108920-8acd-4ae8-8763-d82322466ffb"
+          },
+          {
+            "name": "DST Days",
+            "description": "European clock-change dates, excluded from peak/load-factor metrics.",
+            "displayFolder": "Quality",
+            "expression": "CALCULATE(COUNTROWS('Date'),'Date'[DSTDay]=1)",
+            "formatString": "#,0",
+            "lineageTag": "0c74e843-b4f3-414c-bfb0-15638cc7c0e8"
+          },
+          {
+            "name": "Energy Reconciliation kWh",
+            "description": "System energy minus meter energy rounded to 0.001 kWh to remove floating-point noise; use with date filters only.",
+            "displayFolder": "Quality",
+            "expression": "ROUND(SUM(SystemInterval[EnergyKWh])-CALCULATE(SUM(DailyMeter[EnergyKWh]),REMOVEFILTERS(Meter)),3)",
+            "formatString": "0.000",
+            "lineageTag": "bb7dae5b-faf5-4404-96ef-aea1e8eacf40"
+          },
+          {
+            "name": "Coverage Days",
+            "description": "Calendar dates represented in the meter fact.",
+            "displayFolder": "Quality",
+            "expression": "DISTINCTCOUNT(DailyMeter[Date])",
+            "formatString": "#,0",
+            "lineageTag": "aad2358a-cf7e-47d9-bff3-c634f8eacc07"
+          },
+          {
+            "name": "Readings Million",
+            "description": "Source customer readings expressed in millions.",
+            "displayFolder": "Quality",
+            "expression": "DIVIDE([Readings],1000000)",
+            "formatString": "0.00",
+            "lineageTag": "25ea64e6-9d27-4b2b-9fa9-56751c4bc0aa"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Metrics",
+            "mode": "import",
+            "source": {
+              "expression": "#table(type table [Label = text], {{\"Energy Intelligence\"}})",
+              "type": "m"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

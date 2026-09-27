@@ -1,0 +1,24 @@
+{
+  "name": "Fieldnotes Energy",
+  "dataColors": [
+    "#087F72",
+    "#BA8131",
+    "#6EA79A",
+    "#254F69",
+    "#91A378",
+    "#CA6F54"
+  ],
+  "background": "#F0F4F1",
+  "foreground": "#183C38",
+  "tableAccent": "#087F72",
+  "textClasses": {
+    "title": {
+      "fontFace": "Segoe UI Semibold",
+      "color": "#183C38"
+    },
+    "label": {
+      "fontFace": "Segoe UI",
+      "color": "#617773"
+    }
+  }
+}
