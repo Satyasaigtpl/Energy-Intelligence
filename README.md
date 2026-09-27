@@ -2,13 +2,29 @@
 
 A historical electricity analytics case study built from **51,894,720 real customer readings**, with an auditable pipeline and a native Power BI report.
 
+## Dashboard Preview
+
+### 1. Consumption & Customer Portfolio
+
+<img src="screenshots/1.png" width="100%">
+
+### 2. Peak Demand & Load Performance
+
+<img src="screenshots/2.png" width="100%">
+
+### 3. Efficiency & Carbon Scenarios
+
+<img src="screenshots/3.png" width="100%">
+
+### 4. Data Quality & Interpretation
+
+<img src="screenshots/4.png" width="100%">
+
 ## Open the report
 
 1. Open `Energy Intelligence/Energy Intelligence.pbix` in Power BI Desktop for the portable report with data. Open the `.pbip` alongside it when working with the source-controlled project.
 2. Select **Home → Refresh** if the report opens without data.
 3. Explore the four page tabs: consumption, demand, carbon scenarios and data quality.
-
-The curated data is already prepared on this computer. If you move the repository, change the **DataFolder** text parameter in Transform data → Manage parameters to the absolute `data/curated/` folder, including the trailing slash, before refreshing. The PBIX already contains imported data for offline exploration. The editable source is PBIP/PBIR, the native Power BI project format.
 
 ## Business questions
 
